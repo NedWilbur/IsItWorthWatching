@@ -22,7 +22,7 @@ function inputChange() {
 
 function setResult(watch) {
     if (watch)
-        result.innerHTML = "yes.";
+        result.innerHTML = "Yes.";
     else
-        result.innerHTML = "no.";
+        result.innerHTML = "No.";
 }
