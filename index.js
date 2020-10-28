@@ -1,22 +1,30 @@
-const express = require('express')
-const path = require('path')
-const app = express()
-const PORT = process.env.PORT || 5000
-const logger = require('./middleware/logger')
+import Express from 'express';
+import Path from 'path';
+import movies from './Movies.js';
 
-// logger middleware
-app.use(logger);
+const app = Express()
+const PORT = process.env.PORT || 5000
+const __dirname = Path.resolve(Path.dirname(''));
 
 // set static folder
-app.use(express.static(path.join(__dirname, 'public')))
-
-// set api routes
-app.use('/api/movies', require('./routes/api/movies'))
+app.use(Express.static(Path.join(__dirname, 'public')))
 
 // point all routes to client front end (built version)
-app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public/index.html')));
+app.get('/', (req, res) => res.sendFile(Path.join(__dirname, 'public/index.html')));
+
+// API routes
+app.get('/api', (req, res) => {
+    console.log(`Sending all`)
+
+    res.json(movies.all);
+});
+
+app.get('/api/:id', (req, res) => {
+    var id = req.params.id;
+    console.log(`Searching for id=${id}`);
+
+    res.json(movies.all.filter(movies => movies.id === parseInt(id)))
+});
 
 // run server
-app.listen(PORT, () => {
-    console.log(`Server Running: http://localhost:${PORT}`)
-})
+app.listen(PORT, () => console.log(`Server Running: http://localhost:${PORT}`));

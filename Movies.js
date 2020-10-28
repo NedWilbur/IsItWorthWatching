@@ -1,5 +1,5 @@
 // example json
-const movies = [{
+const all = [{
     id: 1,
     name: 'Shrek',
     rating: 99,
@@ -11,6 +11,9 @@ const movies = [{
     id: 3,
     name: 'Frozen',
     rating: 32,
-}]
+}];
 
-module.exports = movies;
+
+export default {
+    all
+};
