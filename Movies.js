@@ -9,8 +9,9 @@ async function GetMovie(title) {
     const result = await moviedb.searchMovie({
         query: title
     }).then(res => {
-        console.log(`Results returned: ${res}`);
-        return res.results[0];
+        const firstResult = res.results[0];
+        console.log(firstResult);
+        return firstResult;
     }).catch(console.error)
 
     return result;
