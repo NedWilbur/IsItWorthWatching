@@ -1,6 +1,6 @@
 body {
-    background: #252d30;
     text-align: center;
+    background: #252d30;
     color: white;
     margin: 30px;
 }
@@ -10,12 +10,33 @@ body {
     min-width: 10px;
     border-width: 0 0 2px;
     border-color: white;
-}
-
-input {
     background: transparent;
     color: white;
     border-width: 0 0 2px;
     border-color: white;
     width: 0ch;
+}
+
+p {
+    border-radius: 25px;
+    border-color: gray;
+    padding: 5px;
+}
+
+footer {
+    text-align: center;
+    position: fixed;
+    Width: 100%;
+    bottom: 0;
+    margin: 30px;
+}
+
+footer a {
+    color: gray;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: white;
+
 }
