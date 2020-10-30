@@ -1,3 +1,5 @@
+const ratingFilter = 7;
+
 window.addEventListener('load', function () {
     var search = document.querySelector('#search');
     var result = document.querySelector('#result');
@@ -21,7 +23,7 @@ function inputChange() {
         if (this.readyState == 4 && this.status == 200) {
             // request results
             var res = JSON.parse(this.response);
-            res.vote_average >= 70 ? setResult(true) : setResult(false);
+            res.vote_average >= ratingFilter ? setResult(true) : setResult(false);
         }
     }
     req.send();
