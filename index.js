@@ -16,12 +16,5 @@ app.get('/:title', async (req, res) => {
     res.send(await Movies.GetMovie(req.params.title));
 });
 
-app.get('/api/:id', (req, res) => {
-    var id = req.params.id;
-    console.log(`Searching for id=${id}`);
-
-    res.json(movies.all.filter(movies => movies.id === parseInt(id)))
-});
-
 // run server
 app.listen(PORT, () => console.log(`Server Running: http://localhost:${PORT}`));
