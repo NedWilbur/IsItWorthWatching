@@ -15,8 +15,15 @@ app.get('/', (req, res) => res.sendFile(Path.join(__dirname, 'public/index.html'
 // API routes
 app.get('/api', (req, res) => {
     console.log(`Sending all`)
-
+    npm
     res.json(movies.all);
+});
+
+app.get('/api/test', (req, res) => {
+    var id = req.params.id;
+    console.log(`Running Test`);
+
+    res.json(movies.GetMovie('Shrek'));
 });
 
 app.get('/api/:id', (req, res) => {
