@@ -19,14 +19,8 @@ app.use(Express.static(Path.join(__dirname, 'public')))
 app.get('/', (req, res) => res.sendFile(Path.join(__dirname, 'public/index.html')));
 
 // ./title
-app.get('/:title', async (req, res) => {
-    res.send(await Movies.GetMovie(req.params.title));
-});
-
-// form search
-app.post('/search', async (req, res) => {
-    const query = req.body.query;
-    res.send(await Movies.GetMovie(query));
+app.get('/:query', async (req, res) => {
+    res.send(await Movies.SearchForMovie(req.params.query));
 });
 
 // run server

@@ -2,6 +2,7 @@ const ratingFilter = 7;
 
 window.addEventListener('load', function () {
     var search = document.querySelector('#search');
+    var options = document.querySelector('#options');
     var result = document.querySelector('#result');
 
     // create search event listener
@@ -13,6 +14,7 @@ function inputChange() {
     var length = this.value.length;
     if (length <= 1) {
         result.innerHTML = null;
+        options.innerHTML = null; // clear current results
         return;
     }
 
@@ -26,7 +28,14 @@ function inputChange() {
         if (this.readyState == 4 && this.status == 200) {
             // request results
             var res = JSON.parse(this.response);
-            res.vote_average >= ratingFilter ? setResult(true, res.title) : setResult(false, res.title);
+
+            options.innerHTML = null; // clear current results
+            res.forEach(movie => {
+                options.innerHTML += movie.title;
+                options.innerHTML += "</br>";
+            });
+
+            movie.vote_average >= ratingFilter ? setResult(true, res.title) : setResult(false, res.title);
         }
     }
     req.send();
@@ -34,7 +43,7 @@ function inputChange() {
 
 function setResult(worthWatching, title) {
     if (worthWatching)
-        result.innerHTML = title + " - Yes.";
+        result.innerHTML = title + "</br>Yes.";
     else
-        result.innerHTML = title + " - No.";
+        result.innerHTML = title + "</br>No.";
 }

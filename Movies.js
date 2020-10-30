@@ -3,20 +3,18 @@ import {
 } from 'moviedb-promise'
 const moviedb = new MovieDb('9b0b73c0081cd92f6455b2bace97c1ca')
 
-async function GetMovie(title) {
-    console.log(`Searching for ${title}`);
+async function SearchForMovie(query) {
+    console.log(`Searching for ${query}`);
 
-    const result = await moviedb.searchMovie({
-        query: title
+    const results = await moviedb.searchMovie({
+        query: query
     }).then(res => {
-        const firstResult = res.results[0];
-        console.log(firstResult);
-        return firstResult;
+        return res.results;
     }).catch(console.error)
 
-    return result;
+    return results;
 }
 
 export default {
-    GetMovie
+    SearchForMovie
 };
