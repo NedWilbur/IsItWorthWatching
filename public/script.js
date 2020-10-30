@@ -23,7 +23,7 @@ function inputChange() {
         if (this.readyState == 4 && this.status == 200) {
             // request results
             var res = JSON.parse(this.response);
-            res.vote_average >= ratingFilter ? setResult(true) : setResult(false);
+            res.vote_average >= ratingFilter ? setResult(true, res.title) : setResult(false, res.title);
         }
     }
     req.send();
@@ -35,9 +35,9 @@ function inputChange() {
     //     result.innerHTML = null;
 }
 
-function setResult(watch) {
-    if (watch)
-        result.innerHTML = "Yes.";
+function setResult(worthWatching, title) {
+    if (worthWatching)
+        result.innerHTML = title + " - Yes.";
     else
-        result.innerHTML = "No.";
+        result.innerHTML = title + " - No.";
 }
