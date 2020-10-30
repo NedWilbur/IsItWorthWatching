@@ -11,7 +11,10 @@ window.addEventListener('load', function () {
 
 function inputChange() {
     var length = this.value.length;
-    if (length <= 1) return;
+    if (length <= 1) {
+        result.innerHTML = null;
+        return;
+    }
 
     // resize field
     this.style.width = length + "ch";
@@ -27,12 +30,6 @@ function inputChange() {
         }
     }
     req.send();
-
-    // set result
-    // if (length > 1)
-    //     setResult(true);
-    // else
-    //     result.innerHTML = null;
 }
 
 function setResult(worthWatching, title) {
