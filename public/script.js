@@ -16,8 +16,8 @@ function NewQuery() {
 
     // clear results
     if (search.value.length <= 1) {
-        result.innerHTML = null;
-        options.innerHTML = null;
+        result.innerHTML = '';
+        options.innerHTML = '';
         return;
     }
 
@@ -40,7 +40,7 @@ function SendRequest(query) {
 }
 
 function HandleQueryResults(queryResults) {
-    options.innerHTML = null; // clear current results
+    options.innerHTML = ''; // clear current results
     queryResults.forEach(movie => {
         var newElement = document.createElement('p');
         newElement.setAttribute('title', movie.title);
@@ -56,7 +56,7 @@ function HandleQueryResults(queryResults) {
 };
 
 function OptionSelected() {
-    options.innerHTML = null; // clear options
+    options.innerHTML = ''; // clear options
     search.value = this.getAttribute('title'); // set search option
     ResizeSearchInput();
     SetResult(this.getAttribute('rating'));

@@ -9,7 +9,9 @@ async function SearchForMovie(query) {
     const results = await moviedb.searchMovie({
         query: query
     }).then(res => {
-        return res.results;
+        var results = res.results;
+        results.sort((a, b) => b.vote_count - a.vote_count)
+        return results;
     }).catch(console.error)
 
     return results;
