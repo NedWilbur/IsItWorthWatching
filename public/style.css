@@ -1,8 +1,11 @@
 body {
+    font-family: Tahoma, Geneva, sans-serif;
     text-align: center;
     background: #252d30;
     color: white;
-    margin: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+
 }
 
 #search {
@@ -12,23 +15,32 @@ body {
     border-color: white;
     background: transparent;
     color: white;
-    border-width: 0 0 2px;
-    border-color: white;
     width: 0ch;
+    font-size: 20px;
 }
 
-p {
-    border-radius: 25px;
-    border-color: gray;
+li {
+    list-style-type: none;
+    border-bottom: 1px solid #515759;
     padding: 5px;
+}
+
+li:hover {
+    background: #1B2124;
+}
+
+#result {
+    margin: 30px;
+    font-size: 20px;
 }
 
 footer {
     text-align: center;
     position: fixed;
-    Width: 100%;
+    width: 100%;
     bottom: 0;
-    margin: 30px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 footer a {
@@ -38,5 +50,4 @@ footer a {
 
 footer a:hover {
     color: white;
-
 }

@@ -1,4 +1,6 @@
 const ratingFilter = 7;
+var optionsList = null;
+var selectedMovie = null;
 
 window.addEventListener('load', function () {
     var search = document.querySelector('#search');
@@ -39,11 +41,12 @@ function SendRequest(query) {
 }
 
 function HandleQueryResults(queryResults) {
+    optionsList = queryResults;
     options.innerHTML = ''; // clear current results
     queryResults.forEach(movie => {
         // create new element
-        var newElement = document.createElement('p');
-        newElement.setAttribute('title', movie.title);
+        var newElement = document.createElement('li');
+        newElement.setAttribute('id', movie.id);
         newElement.setAttribute('rating', movie.vote_average);
         newElement.innerHTML = movie.title;
         newElement.addEventListener('click', OptionSelected);
@@ -54,8 +57,9 @@ function HandleQueryResults(queryResults) {
 };
 
 function OptionSelected() {
+    // selectedMovie = optionsList.filter((movie.id ==)) this.id;
     options.innerHTML = ''; // clear options
-    search.value = this.getAttribute('title'); // set search option
+    search.value = this.innerHTML; // set search option
     ResizeSearchInput();
     SetResult(this.getAttribute('rating'));
 }
