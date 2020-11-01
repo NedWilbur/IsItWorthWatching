@@ -45,6 +45,14 @@ function HandleQueryResults(queryResults) {
     optionsList = queryResults;
     options.innerHTML = ''; // clear current results
     document.getElementById('spinner').hidden = true; // hide spinner
+
+     // handle if no results
+     if (queryResults.length <= 0) {
+        options.innerHTML = 'Movie not found.';
+        return;
+    }
+
+    // show results
     queryResults.forEach(movie => {
         // get movie year
         var year = movie.release_date.split('-')[0];
