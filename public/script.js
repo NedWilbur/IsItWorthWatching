@@ -74,6 +74,9 @@ function OptionSelected() {
     search.value = this.innerHTML; // set search option
     ResizeSearchInput();
     SetResult(this.getAttribute('rating'));
+
+    // set background image
+    // document.getElementById('backdrop').src = 'https://image.tmdb.org/t/p/original/' +  selectedMovie.backdrop_path;
 }
 
 function SetResult(rating) {

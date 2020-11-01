@@ -5,7 +5,6 @@ body {
     color: white;
     margin-top: 30px;
     margin-bottom: 30px;
-
 }
 
 #search {
@@ -17,6 +16,7 @@ body {
     color: white;
     width: 0ch;
     font-size: 20px;
+    margin-bottom: 20px;
 }
 
 li {
@@ -32,6 +32,13 @@ li:hover {
 #result {
     margin: 30px;
     font-size: 20px;
+}
+
+#backdrop {
+    background-repeat: no-repeat;
+    /* width: 100%; */
+    height: 100%;
+    filter: blur(8px) opacity(25%);
 }
 
 footer {
