@@ -42,16 +42,17 @@ function SendRequest(query) {
 }
 
 function HandleQueryResults(queryResults) {
-
     optionsList = queryResults;
     options.innerHTML = ''; // clear current results
     document.getElementById('spinner').hidden = true; // hide spinner
     queryResults.forEach(movie => {
+        // get movie year
+        var year = movie.release_date.split('-')[0];
+
         // create new element
         var newElement = document.createElement('li');
         newElement.setAttribute('id', movie.id);
-        newElement.setAttribute('rating', movie.vote_average);
-        newElement.innerHTML = movie.title;
+        newElement.innerHTML = `${movie.title} (${year})`;
         newElement.addEventListener('click', OptionSelected);
 
         // add to options list
@@ -60,7 +61,7 @@ function HandleQueryResults(queryResults) {
 };
 
 function OptionSelected() {
-    // selectedMovie = optionsList.filter((movie.id ==)) this.id;
+    selectedMovie = optionsList.filter((movie) => movie.id == this.id);
     options.innerHTML = ''; // clear options
     search.value = this.innerHTML; // set search option
     ResizeSearchInput();
