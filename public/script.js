@@ -38,11 +38,14 @@ function SendRequest(query) {
             HandleQueryResults(JSON.parse(this.response));
     }
     req.send();
+    document.getElementById('spinner').hidden = false; // show spinner
 }
 
 function HandleQueryResults(queryResults) {
+
     optionsList = queryResults;
     options.innerHTML = ''; // clear current results
+    document.getElementById('spinner').hidden = true; // hide spinner
     queryResults.forEach(movie => {
         // create new element
         var newElement = document.createElement('li');
