@@ -89,7 +89,6 @@ function OptionSelected() {
     optionsEle.innerHTML = ''; // clear options
     queryEle.value = this.innerHTML; // set search option
     ResizeSearchInput();
-    console.log(selectedMovie.vote_average);
 
     if (selectedMovie.vote_count <= voteCountThreshhold)
         resultEle.innerHTML = "Not enough data."

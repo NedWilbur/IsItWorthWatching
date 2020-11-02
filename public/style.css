@@ -22,7 +22,7 @@ body {
 
 li {
     list-style-type: none;
-    border-bottom: 1px solid #515759;
+    /* border-bottom: 1px solid #515759; */
     padding: 5px;
 }
 
@@ -33,13 +33,6 @@ li:hover {
 #result {
     margin: 30px;
     font-size: 20px;
-}
-
-#backdrop {
-    background-repeat: no-repeat;
-    /* width: 100%; */
-    height: 100%;
-    filter: blur(8px) opacity(25%);
 }
 
 /* Footer */
