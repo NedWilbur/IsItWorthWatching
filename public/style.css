@@ -22,12 +22,13 @@ body {
 
 li {
     list-style-type: none;
-    /* border-bottom: 1px solid #515759; */
     padding: 5px;
+    margin: 1px;
 }
 
 li:hover {
     background: #1B2124;
+    border: 1px solid #515759;
 }
 
 #result {
