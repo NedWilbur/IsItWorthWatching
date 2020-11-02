@@ -1,10 +1,12 @@
 const ratingFilter = 7;
 const voteCountThreshhold = 50;
-var optionsList = null;
-var selectedMovie = null;
-var queryEle = null;
-var optionsEle = null;
-var resultEle = null;
+let optionsList = null;
+let selectedMovie = null;
+let queryEle = null;
+let optionsEle = null;
+let resultEle = null;
+let timeout = null;
+
 
 window.addEventListener('load', function () {
     queryEle = document.getElementById('query');
@@ -26,7 +28,12 @@ function NewQuery() {
         return;
     }
 
-    SendRequest(queryEle.value);
+    // wait 500ms before sending request
+    clearTimeout(timeout);
+    timeout = setTimeout(function () {
+        SendRequest(queryEle.value);
+    }, 500);
+
 }
 
 function ResizeSearchInput() {
@@ -84,7 +91,6 @@ function OptionSelected() {
     ResizeSearchInput();
     console.log(selectedMovie.vote_average);
 
-    console.log(selectedMovie);
     if (selectedMovie.vote_count <= voteCountThreshhold)
         resultEle.innerHTML = "Not enough data."
     else {
