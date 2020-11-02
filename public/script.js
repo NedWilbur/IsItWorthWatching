@@ -59,11 +59,12 @@ function HandleQueryResults(queryResults) {
     queryResults.forEach(movie => {
         // get movie year
         var year = movie.release_date.split('-')[0];
+        year.length <= 0 ? year = "" : year = `(${year})`; // Handle unknown year
 
         // create new element
         var newElement = document.createElement('li');
         newElement.setAttribute('id', movie.id);
-        newElement.innerHTML = `${movie.title} (${year})`;
+        newElement.innerHTML = `${movie.title} ${year}`;
         newElement.addEventListener('click', OptionSelected);
 
         // add to options list
