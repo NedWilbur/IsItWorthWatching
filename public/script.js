@@ -1,4 +1,5 @@
 const ratingFilter = 7;
+const voteCountThreshhold = 50;
 var optionsList = null;
 var selectedMovie = null;
 var queryEle = null;
@@ -57,14 +58,10 @@ function HandleQueryResults(queryResults) {
 
     // show results
     queryResults.forEach(movie => {
-        // get movie year
-        var year = movie.release_date.split('-')[0];
-        year.length <= 0 ? year = "" : year = `(${year})`; // Handle unknown year
-
         // create new element
         var newElement = document.createElement('li');
         newElement.setAttribute('id', movie.id);
-        newElement.innerHTML = `${movie.title} ${year}`;
+        newElement.innerHTML = `${movie.title} ${GetReleaseYear(movie)}`;
         newElement.addEventListener('click', OptionSelected);
 
         // add to options list
@@ -72,20 +69,27 @@ function HandleQueryResults(queryResults) {
     });
 };
 
+function GetReleaseYear(movie) {
+    if (movie.release_date != null || movie.release_date <= 0) {
+        return `(${movie.release_date.split('-')[0]})`;
+    } else {
+        return "(Unknown)"
+    }
+}
+
 function OptionSelected() {
-    selectedMovie = optionsList.filter((movie) => movie.id == this.id);
+    selectedMovie = optionsList.filter((movie) => movie.id == this.id)[0];
     optionsEle.innerHTML = ''; // clear options
     queryEle.value = this.innerHTML; // set search option
     ResizeSearchInput();
-    SetResult(this.getAttribute('rating'));
+    console.log(selectedMovie.vote_average);
 
-    // set background image
-    // document.getElementById('backdrop').src = 'https://image.tmdb.org/t/p/original/' +  selectedMovie.backdrop_path;
-}
-
-function SetResult(rating) {
-    if (rating >= ratingFilter)
-        resultEle.innerHTML = "Yes.";
-    else
-        resultEle.innerHTML = "No.";
+    console.log(selectedMovie);
+    if (selectedMovie.vote_count <= voteCountThreshhold)
+        resultEle.innerHTML = "Not enough data."
+    else {
+        selectedMovie.vote_average >= ratingFilter ?
+            resultEle.innerHTML = "Yes." :
+            resultEle.innerHTML = "No.";
+    }
 }
