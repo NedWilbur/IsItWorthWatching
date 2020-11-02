@@ -1,5 +1,5 @@
 body {
-    font-family: Tahoma, Geneva, sans-serif;
+    font-family: "Lucida Console";
     text-align: center;
     background: #252d30;
     color: white;
@@ -7,14 +7,15 @@ body {
     margin-bottom: 30px;
 }
 
-#search {
+#query {
+    font-family: inherit;
     display: inline-block;
     min-width: 10px;
     border-width: 0 0 2px;
     border-color: white;
     background: transparent;
     color: white;
-    width: 0ch;
+    min-width: 2ch;
     font-size: 20px;
     margin-bottom: 20px;
 }
@@ -41,6 +42,7 @@ li:hover {
     filter: blur(8px) opacity(25%);
 }
 
+/* Footer */
 footer {
     position: fixed;
     width: 100%;

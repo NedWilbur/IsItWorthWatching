@@ -1,32 +1,35 @@
 const ratingFilter = 7;
 var optionsList = null;
 var selectedMovie = null;
+var queryEle = null;
+var optionsEle = null;
+var resultEle = null;
 
 window.addEventListener('load', function () {
-    var search = document.querySelector('#search');
-    var options = document.querySelector('#options');
-    var result = document.querySelector('#result');
+    queryEle = document.getElementById('query');
+    optionsEle = document.getElementById('options');
+    resultEle = document.getElementById('result');
 
     // create search event listener
-    search.addEventListener('input', NewQuery);
-    ResizeSearchInput.call(search);
+    queryEle.addEventListener('input', NewQuery);
+    ResizeSearchInput.call(queryEle);
 })
 
 function NewQuery() {
     ResizeSearchInput();
 
     // clear results
-    if (search.value.length <= 1) {
-        result.innerHTML = '';
-        options.innerHTML = '';
+    if (queryEle.value.length <= 1) {
+        resultEle.innerHTML = '';
+        optionsEle.innerHTML = '';
         return;
     }
 
-    SendRequest(search.value);
+    SendRequest(queryEle.value);
 }
 
 function ResizeSearchInput() {
-    search.style.width = search.value.length + "ch";
+    queryEle.style.width = queryEle.value.length + "ch";
 }
 
 function SendRequest(query) {
@@ -43,12 +46,12 @@ function SendRequest(query) {
 
 function HandleQueryResults(queryResults) {
     optionsList = queryResults;
-    options.innerHTML = ''; // clear current results
+    optionsEle.innerHTML = ''; // clear current results
     document.getElementById('spinner').hidden = true; // hide spinner
 
-     // handle if no results
-     if (queryResults.length <= 0) {
-        options.innerHTML = 'Movie not found.';
+    // handle if no results
+    if (queryResults.length <= 0) {
+        optionsEle.innerHTML = 'Movie not found.';
         return;
     }
 
@@ -64,14 +67,14 @@ function HandleQueryResults(queryResults) {
         newElement.addEventListener('click', OptionSelected);
 
         // add to options list
-        options.appendChild(newElement);
+        optionsEle.appendChild(newElement);
     });
 };
 
 function OptionSelected() {
     selectedMovie = optionsList.filter((movie) => movie.id == this.id);
-    options.innerHTML = ''; // clear options
-    search.value = this.innerHTML; // set search option
+    optionsEle.innerHTML = ''; // clear options
+    queryEle.value = this.innerHTML; // set search option
     ResizeSearchInput();
     SetResult(this.getAttribute('rating'));
 
@@ -81,7 +84,7 @@ function OptionSelected() {
 
 function SetResult(rating) {
     if (rating >= ratingFilter)
-        result.innerHTML = "Yes.";
+        resultEle.innerHTML = "Yes.";
     else
-        result.innerHTML = "No.";
+        resultEle.innerHTML = "No.";
 }
