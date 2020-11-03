@@ -6,7 +6,6 @@
   "scripts": {
     "debug": "nodemon --inspect index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    // babel specific (see https://medium.com/@kimtnguyen/how-to-deploy-es6-node-js-express-back-end-to-heroku-7e6743e8d2ff)
     "clean": "rm -rf build && mkdir build",
     "build-babel": "babel -d ./build ./src -s",
     "build": "npm run clean && npm run build-babel",
