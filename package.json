@@ -1,20 +1,25 @@
 {
   "name": "isitworthwatching",
   "version": "1.0.0",
-  "description": "",
+  "description": "Is it worth watching?",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
     "debug": "nodemon --inspect index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    // babel specific (see https://medium.com/@kimtnguyen/how-to-deploy-es6-node-js-express-back-end-to-heroku-7e6743e8d2ff)
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s",
+    "build": "npm run clean && npm run build-babel",
+    "start": "npm run build && node ./build/index.js" 
   },
   "author": "Ned Wilbur",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
     "express": "^4.17.1",
     "moment": "^2.29.1",
-    "moviedb-promise": "^3.1.2",
-    "nodemon": "^2.0.6"
+    "moviedb-promise": "^3.1.2"
   }
 }
