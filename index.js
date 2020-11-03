@@ -1,10 +1,9 @@
-import Express from 'express';
-import Path from 'path';
-import Movies from './Movies.js';
+const Express = require('express');
+const Path = require('path');
+const Tmdb = require('./tmdb.js');
 
 const app = Express()
 const PORT = process.env.PORT || 5000;
-const __dirname = Path.resolve(Path.dirname(''));
 
 // set static folder
 app.use(Express.static(Path.join(__dirname, 'public')))
@@ -16,7 +15,7 @@ app.get('/beer', (req, res) => res.sendFile(Path.join(__dirname, 'public/beer.ht
 
 // ./title
 app.get('/s/:query', async (req, res) => {
-    res.send(await Movies.SearchForMovie(req.params.query));
+    res.send(await Tmdb.SearchForMovie(req.params.query));
 });
 
 // run server

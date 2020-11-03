@@ -1,6 +1,6 @@
-import {
+const {
     MovieDb
-} from 'moviedb-promise';
+} = require('moviedb-promise');
 const moviedb = new MovieDb('9b0b73c0081cd92f6455b2bace97c1ca');
 
 async function SearchForMovie(searchQuery) {
@@ -15,6 +15,6 @@ async function SearchForMovie(searchQuery) {
     return results;
 }
 
-export default {
+module.exports = {
     SearchForMovie
 };
