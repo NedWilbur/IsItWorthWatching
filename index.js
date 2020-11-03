@@ -3,7 +3,6 @@ import Path from 'path';
 import Movies from './Movies.js';
 
 const app = Express()
-const PORT = process.env.PORT || 5000
 const __dirname = Path.resolve(Path.dirname(''));
 
 // set static folder
@@ -20,4 +19,4 @@ app.get('/s/:query', async (req, res) => {
 });
 
 // run server
-app.listen(process.env.PORT || PORT, () => console.log(`Server Running: http://localhost:${PORT}`));
+app.listen(process.env.PORT || 5000, () => console.log(`Server Running: http://localhost:5000`));
