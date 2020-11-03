@@ -1,4 +1,4 @@
-const ratingFilter = 7;
+const ratingFilter = 6;
 const voteCountThreshhold = 50;
 let optionsList = null;
 let selectedMovie = null;
@@ -33,7 +33,6 @@ function NewQuery() {
     timeout = setTimeout(function () {
         SendRequest(queryEle.value);
     }, 500);
-
 }
 
 function ResizeSearchInput() {

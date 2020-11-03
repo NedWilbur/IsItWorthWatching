@@ -9,11 +9,10 @@ const __dirname = Path.resolve(Path.dirname(''));
 // set static folder
 app.use(Express.static(Path.join(__dirname, 'public')))
 
-// point all routes to client front end (built version)
+// routes
 app.get('/', (req, res) => res.sendFile(Path.join(__dirname, 'public/index.html')));
-
-// point all routes to client front end (built version)
 app.get('/about', (req, res) => res.sendFile(Path.join(__dirname, 'public/about.html')));
+app.get('/beer', (req, res) => res.sendFile(Path.join(__dirname, 'public/beer.html')));
 
 // ./title
 app.get('/s/:query', async (req, res) => {
