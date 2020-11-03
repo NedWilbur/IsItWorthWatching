@@ -19,4 +19,4 @@ app.get('/s/:query', async (req, res) => {
 });
 
 // run server
-app.listen(process.env.PORT || 5000, () => console.log(`Server Running: http://localhost:5000`));
+app.listen(process.env.PORT, () => console.log(`Server Running: http://localhost:${process.env.PORT}`));
