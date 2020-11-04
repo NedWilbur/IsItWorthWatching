@@ -44,7 +44,7 @@ function ResizeSearchInput() {
 
 function SendRequest(query) {
     // send request
-    var req = new XMLHttpRequest();
+    let req = new XMLHttpRequest();
     req.open('GET', `/s/${query}`);
     req.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200)
@@ -68,7 +68,7 @@ function HandleQueryResults(queryResults) {
     // show results
     queryResults.forEach(movie => {
         // create new element
-        var newElement = document.createElement('li');
+        let newElement = document.createElement('li');
         newElement.setAttribute('id', movie.id);
         newElement.innerHTML = `${movie.title} ${GetReleaseYear(movie)}`;
         newElement.addEventListener('click', OptionSelected);
