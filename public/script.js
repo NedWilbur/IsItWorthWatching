@@ -16,6 +16,9 @@ window.addEventListener('load', function () {
     // create search event listener
     queryEle.addEventListener('input', NewQuery);
     ResizeSearchInput.call(queryEle);
+
+    // focus query field
+    queryEle.focus();
 })
 
 function NewQuery() {
