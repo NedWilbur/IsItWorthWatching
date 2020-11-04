@@ -89,7 +89,7 @@ function GetReleaseYear(movie) {
 function OptionSelected() {
     selectedMovie = optionsList.filter((movie) => movie.id == this.id)[0];
     optionsEle.innerHTML = ''; // clear options
-    queryEle.value = this.innerHTML; // set search option
+    queryEle.value = this.innerText; // set search option
     ResizeSearchInput();
 
     if (selectedMovie.vote_count <= voteCountThreshhold)
