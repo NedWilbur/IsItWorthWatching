@@ -1,5 +1,5 @@
 const ratingFilter = 6;
-const voteCountThreshhold = 50;
+const voteCountThreshhold = 25;
 let optionsList = null;
 let selectedMovie = null;
 let queryEle = null;
@@ -36,7 +36,7 @@ function NewQuery() {
 }
 
 function ResizeSearchInput() {
-    queryEle.style.width = queryEle.value.length + "ch";
+    queryEle.style.width = queryEle.value.length + 'ch';
 }
 
 function SendRequest(query) {
@@ -79,7 +79,7 @@ function GetReleaseYear(movie) {
     if (movie.release_date != null || movie.release_date <= 0) {
         return `(${movie.release_date.split('-')[0]})`;
     } else {
-        return "(Unknown)"
+        return '(?)'
     }
 }
 
@@ -90,10 +90,12 @@ function OptionSelected() {
     ResizeSearchInput();
 
     if (selectedMovie.vote_count <= voteCountThreshhold)
-        resultEle.innerHTML = "Not enough data."
-    else {
+        resultEle.innerHTML = 'Not enough data.';
+    else
         selectedMovie.vote_average >= ratingFilter ?
-            resultEle.innerHTML = "Yes." :
-            resultEle.innerHTML = "No.";
-    }
+        resultEle.innerHTML = 'Yes.' :
+        resultEle.innerHTML = 'No.';
+
+
+
 }
