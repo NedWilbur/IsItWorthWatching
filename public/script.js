@@ -43,14 +43,22 @@ function ResizeSearchInput() {
 }
 
 function SendRequest(query) {
-    // send request
+    // create request
     let req = new XMLHttpRequest();
-    req.open('GET', `/s/${query}`);
+    req.open('POST', '/query', true);
+    req.setRequestHeader("Content-Type", "application/json");
+
+    // set request callback
     req.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200)
             HandleQueryResults(JSON.parse(this.response));
     }
-    req.send();
+
+    // send request
+    req.send(JSON.stringify({
+        "query": query
+    }));
+
     document.getElementById('spinner').hidden = false; // show spinner
 }
 
