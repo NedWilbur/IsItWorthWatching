@@ -2,17 +2,21 @@ const {
     Console
 } = require('console');
 const express = require('express');
+const logger = require('./middleware/logger.js');
 const path = require('path');
 const tmdb = require('./tmdb.js');
 
 const app = express()
 const PORT = process.env.PORT || 5000;
 
-// body parser for POST
+// init body parser for POST
 app.use(express.json());
 app.use(express.urlencoded({
     extended: false
 }));
+
+// init middleware
+app.use(logger.log);
 
 // set static folder
 app.use(express.static(path.join(__dirname, 'public')))
@@ -23,7 +27,6 @@ app.get('/about', (req, res) => res.sendFile(path.join(__dirname, 'public/about.
 app.get('/beer', (req, res) => res.sendFile(path.join(__dirname, 'public/beer.html')));
 
 app.post('/query', async (req, res) => {
-    console.log(`POST: ${req.body.query}`);
     res.send(await tmdb.SearchForMovie(req.body.query));
 });
 

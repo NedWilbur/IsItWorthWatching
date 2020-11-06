@@ -4,6 +4,7 @@ const {
 const moviedb = new MovieDb('9b0b73c0081cd92f6455b2bace97c1ca');
 
 async function SearchForMovie(searchQuery) {
+    console.log(`Searching for movie: ${searchQuery}`);
     const results = await moviedb.searchMovie({
         query: searchQuery
     }).then(res => {

@@ -1,11 +1,11 @@
-import moment from 'moment';
+const moment = require('moment');
 
 // middleware logger
-const logger = (req, res, next) => {
-    console.log(`${moment().format()}: ${req.protocol}://${req.get('host')}${req.originalUrl}`);
+const log = (req, res, next) => {
+    console.log(`[${moment().format()}][${req.protocol}://${req.get('host')}${req.originalUrl}][${req.method}]`);
     next();
 }
 
-export default {
-    logger
+module.exports = {
+    log
 };
