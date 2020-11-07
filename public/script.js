@@ -1,5 +1,5 @@
 const ratingFilter = 6;
-const voteCountThreshhold = 25;
+const voteCountThreshhold = 20;
 let optionsList = null;
 let selectedMovie = null;
 let queryEle = null;
