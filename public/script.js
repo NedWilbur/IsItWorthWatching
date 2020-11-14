@@ -106,7 +106,4 @@ function OptionSelected() {
         selectedMovie.vote_average >= ratingFilter ?
         resultEle.innerHTML = 'Yes.' :
         resultEle.innerHTML = 'No.';
-
-
-
 }

@@ -30,6 +30,7 @@ li {
 li:hover {
     background: #1B2124;
     border: 1px solid #515759;
+
 }
 
 #result {
@@ -47,6 +48,14 @@ a:link,
 a:visited {
     color: white;
     border-bottom: 1px;
+}
+
+#algorithm {
+    color: lime;
+    background: #1B2124;
+    border: 1px solid #515759;
+    font-size: 20px;
+    text-align: left;
 }
 
 /* Footer */
