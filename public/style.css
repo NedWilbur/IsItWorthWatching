@@ -41,7 +41,7 @@ li:hover {
 #about {
     display: inline-block;
     margin: 30px;
-    width: 50ch;
+    max-width: 50ch;
 }
 
 a:link,
