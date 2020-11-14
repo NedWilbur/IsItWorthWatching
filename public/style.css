@@ -16,6 +16,7 @@ body {
     background: transparent;
     color: white;
     min-width: 1ch;
+    max-width: 100%;
     font-size: 20px;
     margin-bottom: 20px;
 }
