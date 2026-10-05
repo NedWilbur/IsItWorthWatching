@@ -1,52 +1,49 @@
- <!DOCTYPE html>
- <html lang="en">
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8f5">
+    <meta name="description" content="How Is It Worth Watching? turns movie ratings into one simple recommendation.">
+    <title>About · Is It Worth Watching?</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="/" aria-label="Is It Worth Watching home">
+                <span class="brand-mark" aria-hidden="true">iw</span>
+                <span>Is It Worth Watching?</span>
+            </a>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="/about" aria-current="page">About</a>
+                <a class="nav-support" href="/beer">Give back</a>
+            </nav>
+        </header>
 
- <head>
-     <meta charset="UTF-8">
-     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <link rel="icon" type="image/png" href="favicon.png">
-     <title>IsItWorthWatching</title>
-     <link rel="stylesheet" href="style.css">
-     <!-- Global site tag (gtag.js) - Google Analytics -->
-     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KNQM2S4TR"></script>
-     <script>
-         window.dataLayer = window.dataLayer || [];
+        <main class="content-main">
+            <article class="content-card">
+                <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> A method of questionable rigor</p>
+                <h1>Less hype.<br>Better movie nights.</h1>
+                <p>Sometimes a movie is more fun when nobody has spent six months telling you it will change your life. This little site helps you dodge the obvious duds without turning movie night into homework.</p>
+                <p>Search for a movie, pick the right one, and get a simple answer based on its TMDB audience rating. We call it a “yes” at 6 out of 10 or higher, once more than 20 people have weighed in. It’s a nudge, not a review. Your taste gets the final say.</p>
 
-         function gtag() {
-             dataLayer.push(arguments);
-         }
-         gtag('js', new Date());
+                <details class="algorithm-details">
+                    <summary>Show the famously complicated algorithm</summary>
+                    <p>More than 20 ratings and an average of at least 6/10? Yes. Otherwise, not yet. Peer reviewed by exactly zero wizards.</p>
+                </details>
 
-         gtag('config', 'G-3KNQM2S4TR');
-     </script>
- </head>
+                <div class="tmdb-attribution">
+                    <p>Movie data and audience ratings are provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">The Movie Database (TMDB)</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+                </div>
+            </article>
+        </main>
 
- <body>
-     <div id="about">
-         <h1>About</h1>
-         <p>
-             Many things are more enjoyable when you experience them with little to no expectations. Having something
-             overhyped sets the expectations high and makes it easier for that thing to disappoint.
-         </p>
-         <p>This website is for those who want to reduce the chances watching a sh*tty movie but also do not
-             want to have their
-             expectations set too high. It achieves this by answering one simple question with one simple answer.</p>
-         <p>The algorithm to decide to answer this question has been my lifelong achievement and has taken years of
-             development. It has been fine-tuned, reviewed, and approved by the most notable movie critics,
-             mathematicians, magicians, and wizards. If you wish to view this complex algorithm, <a
-                 onclick="document.getElementById('algorithm').hidden = false;">click
-                 here</a>. </p>
-         <pre id="algorithm" hidden>
-             <code>
-        if (movie.rating >= 60%) 
-            return 'Yes.'; 
-        else 
-            return 'No.';</code>
-            </pre>
-         <p>Enjoying the website? <a href="/beer">Buy me a beer</a>.</p>
-     </div>
- </body>
-
- <footer><a href="/">Go back</a> | <a href="/beer">🍺</a></footer>
-
- </html>
+        <footer class="site-footer">
+            <a href="/">← Back to the search</a>
+            <a href="/beer">Give back</a>
+        </footer>
+    </div>
+</body>
+</html>

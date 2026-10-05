@@ -1,20 +1,21 @@
 {
   "name": "isitworthwatching",
   "version": "1.0.0",
-  "description": "Is it worth watching?",
-  "main": "index.js",
+  "description": "A quick movie recommendation site, powered by TMDB and Cloudflare Workers.",
   "scripts": {
-    "start": "node index.js",
-    "debug": "nodemon --inspect index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
   },
   "author": "Ned Wilbur",
   "license": "ISC",
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "express": "^4.17.1",
-    "moment": "^2.29.1",
-    "moviedb-promise": "^3.1.2"
+  "engines": {
+    "node": ">=22"
+  },
+  "devDependencies": {
+    "wrangler": "^4.34.0"
+  },
+  "allowScripts": {
+    "esbuild@0.28.1": true,
+    "workerd@1.20260926.1": true
   }
 }

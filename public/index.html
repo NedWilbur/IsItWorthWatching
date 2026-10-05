@@ -1,40 +1,77 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="favicon.png">
-    <title>IsItWorthWatching</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f8f5">
+    <meta name="description" content="A quick, low-expectation answer to the movie question: is it worth watching?">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Is It Worth Watching?">
+    <meta property="og:description" content="Pick a movie. Get one honest answer, with appropriately low expectations.">
+    <title>Is It Worth Watching?</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3KNQM2S4TR"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-3KNQM2S4TR');
-    </script>
+    <script src="script.js" defer></script>
 </head>
-
 <body>
-    <a>
-        Is
-        <input type="text" id="query" autocomplete="off" onclick="this.select()" />
-        worth watching?
-    </a>
-    <br>
-    <div id="options">
+    <div class="page-shell">
+        <header class="site-header">
+            <a class="brand" href="/" aria-label="Is It Worth Watching home">
+                <span class="brand-mark" aria-hidden="true">iw</span>
+                <span>Is It Worth Watching?</span>
+            </a>
+            <nav class="site-nav" aria-label="Main navigation">
+                <a href="/about">About</a>
+                <a class="nav-support" href="/beer">Give back</a>
+            </nav>
+        </header>
+
+        <main class="home-main">
+            <section class="search-card" aria-labelledby="page-title">
+                <p class="eyebrow"><span class="eyebrow-dot" aria-hidden="true"></span> A quick answer for movie night</p>
+                <h1 id="page-title">Is it worth<br class="mobile-break"> watching?</h1>
+                <p class="intro">Search a title, pick a match, and get a straight answer.</p>
+
+                <form id="search-form" class="search-form" role="search" novalidate>
+                    <label class="visually-hidden" for="query">Search for a movie</label>
+                    <span class="search-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none"><circle cx="10.8" cy="10.8" r="6.8"></circle><path d="m16 16 4.2 4.2"></path></svg>
+                    </span>
+                    <input
+                        id="query"
+                        name="query"
+                        type="search"
+                        placeholder="Search a movie…"
+                        maxlength="100"
+                        autocomplete="off"
+                        autocapitalize="off"
+                        spellcheck="false"
+                        enterkeyhint="search"
+                        role="combobox"
+                        aria-autocomplete="list"
+                        aria-controls="options"
+                        aria-expanded="false"
+                        aria-describedby="search-hint"
+                    >
+                    <button id="clear-search" class="clear-search" type="button" aria-label="Clear search" hidden>
+                        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="m5 5 10 10M15 5 5 15"></path></svg>
+                    </button>
+                    <span id="spinner" class="spinner" aria-hidden="true" hidden></span>
+                </form>
+                <p id="search-hint" class="search-hint">Start typing to see movie suggestions.</p>
+
+                <ul id="options" class="movie-options" role="listbox" aria-label="Movie search results" hidden></ul>
+                <p id="search-status" class="search-status" role="status" aria-live="polite">Search by movie title to get started.</p>
+
+                <section id="result" class="result-card" aria-live="polite" aria-atomic="true" hidden></section>
+            </section>
+            <p class="home-note">Based on audience ratings. Your taste gets the final say.</p>
+        </main>
+
+        <footer class="site-footer">
+            <span>Made for indecisive movie nights.</span>
+            <a href="/about">How it works</a>
+        </footer>
     </div>
-    <div id="result"></div>
-    <image id="spinner" src="spinner.gif" hidden></image>
-
-    <footer><a href="/about">About</a> | <a href="/beer">🍺</a></footer>
 </body>
-
 </html>
