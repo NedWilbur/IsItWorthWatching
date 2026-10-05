@@ -46,7 +46,7 @@ async function searchMovies(request, apiKey) {
     return jsonResponse({ error: "Enter a search between 1 and 100 characters" }, 400);
   }
   if (!apiKey) {
-    return jsonResponse({ error: "Movie search is not configured" }, 500);
+    return jsonResponse({ error: "Movie search is not configured", code: "missing_api_key" }, 500);
   }
 
   const tmdbUrl = new URL("https://api.themoviedb.org/3/search/movie");
@@ -59,6 +59,9 @@ async function searchMovies(request, apiKey) {
     });
     if (!response.ok) {
       console.warn(`TMDB search returned ${response.status}`);
+      if (response.status === 401 || response.status === 403) {
+        return jsonResponse({ error: "TMDB rejected the API key", code: "invalid_api_key" }, 502);
+      }
       return jsonResponse({ error: "Movie search is temporarily unavailable" }, 502);
     }
 

@@ -108,8 +108,12 @@ async function searchMovies(query) {
             signal: requestController.signal,
         });
 
-        if (!response.ok) throw new Error("Movie search request failed");
         const data = await response.json();
+        if (!response.ok) {
+            const error = new Error(data?.error || "Movie search request failed");
+            error.code = data?.code;
+            throw error;
+        }
         if (sequence !== requestSequence) return;
         if (!Array.isArray(data)) throw new Error("Unexpected movie search response");
 
@@ -126,7 +130,7 @@ async function searchMovies(query) {
         if (error.name === "AbortError" || sequence !== requestSequence) return;
         setLoading(false);
         closeOptions();
-        setStatus("Search took a wrong turn. Please try again.", "error");
+        setStatus("Ah fuck, something broke.", "error");
     }
 }
 

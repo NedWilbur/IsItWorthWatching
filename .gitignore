@@ -6,6 +6,8 @@ coverage/
 # Local credentials and environment files
 .dev.vars
 .dev.vars.*
+dev.vars
+,dev.vars
 .env
 .env.*
 
