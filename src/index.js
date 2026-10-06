@@ -1,6 +1,6 @@
 const MAX_QUERY_LENGTH = 100;
 const MAX_BODY_BYTES = 2048;
-const MAX_RESULTS = 7;
+const MAX_RESULTS = 20;
 
 function jsonResponse(body, status = 200) {
   return new Response(JSON.stringify(body), {
@@ -11,6 +11,39 @@ function jsonResponse(body, status = 200) {
       "X-Content-Type-Options": "nosniff",
     },
   });
+}
+
+async function servePoster(pathname) {
+  const match = pathname.match(/^\/poster\/([a-z0-9_-]+\.(?:jpe?g|png|webp))$/i);
+  if (!match) {
+    return new Response("Not found", { status: 404 });
+  }
+
+  try {
+    const image = await fetch(`https://image.tmdb.org/t/p/w185/${match[1]}`, {
+      cf: { cacheTtl: 86400, cacheEverything: true },
+    });
+    const contentType = image.headers.get("content-type") || "";
+    if (!image.ok || !contentType.startsWith("image/")) {
+      return new Response("Poster unavailable", {
+        status: 404,
+        headers: { "Cache-Control": "public, max-age=300" },
+      });
+    }
+
+    return new Response(image.body, {
+      headers: {
+        "Content-Type": contentType,
+        "Cache-Control": "public, max-age=86400",
+        "X-Content-Type-Options": "nosniff",
+      },
+    });
+  } catch {
+    return new Response("Poster unavailable", {
+      status: 502,
+      headers: { "Cache-Control": "no-store" },
+    });
+  }
 }
 
 async function searchMovies(request, apiKey) {
@@ -45,17 +78,28 @@ async function searchMovies(request, apiKey) {
   if (!query || query.length > MAX_QUERY_LENGTH) {
     return jsonResponse({ error: "Enter a search between 1 and 100 characters" }, 400);
   }
-  if (!apiKey) {
+  const mediaType = body?.media_type ?? "all";
+  if (!["all", "movie", "tv"].includes(mediaType)) {
+    return jsonResponse({ error: "Invalid media type filter" }, 400);
+  }
+  const credential = typeof apiKey === "string" ? apiKey.trim() : "";
+  if (!credential) {
     return jsonResponse({ error: "Movie search is not configured", code: "missing_api_key" }, 500);
   }
 
-  const tmdbUrl = new URL("https://api.themoviedb.org/3/search/movie");
+  const tmdbSearchType = mediaType === "all" ? "multi" : mediaType;
+  const tmdbUrl = new URL(`https://api.themoviedb.org/3/search/${tmdbSearchType}`);
   tmdbUrl.searchParams.set("query", query);
-  tmdbUrl.searchParams.set("api_key", apiKey);
+  const headers = new Headers({ Accept: "application/json" });
+  if (credential.startsWith("eyJ")) {
+    headers.set("Authorization", `Bearer ${credential}`);
+  } else {
+    tmdbUrl.searchParams.set("api_key", credential);
+  }
 
   try {
     const response = await fetch(tmdbUrl, {
-      headers: { Accept: "application/json" },
+      headers,
     });
     if (!response.ok) {
       console.warn(`TMDB search returned ${response.status}`);
@@ -66,12 +110,21 @@ async function searchMovies(request, apiKey) {
     }
 
     const data = await response.json();
-    const results = Array.isArray(data.results) ? data.results : [];
-    return jsonResponse(results.slice(0, MAX_RESULTS).map((movie) => ({
-      title: movie.title,
-      release_date: movie.release_date,
-      vote_average: movie.vote_average,
-      vote_count: movie.vote_count,
+    const results = Array.isArray(data.results)
+      ? data.results.filter((item) => mediaType !== "all"
+        ? true
+        : item.media_type === "movie" || item.media_type === "tv")
+      : [];
+    return jsonResponse(results.slice(0, MAX_RESULTS).map((item) => ({
+      media_type: mediaType === "all" ? item.media_type : mediaType,
+      title: (mediaType === "tv" || item.media_type === "tv") ? item.name : item.title,
+      release_date: (mediaType === "tv" || item.media_type === "tv") ? item.first_air_date : item.release_date,
+      overview: typeof item.overview === "string" ? item.overview : "",
+      poster_path: typeof item.poster_path === "string" && item.poster_path.startsWith("/")
+        ? item.poster_path
+        : null,
+      vote_average: item.vote_average,
+      vote_count: item.vote_count,
     })));
   } catch {
     console.error("TMDB search request failed");
@@ -87,10 +140,8 @@ export default {
       return searchMovies(request, env.TMDB_API_KEY);
     }
 
-    // Keep the original extensionless page URLs while serving static assets.
-    if (url.pathname === "/about" || url.pathname === "/beer") {
-      url.pathname += ".html";
-      return env.ASSETS.fetch(new Request(url, request));
+    if (url.pathname.startsWith("/poster/")) {
+      return servePoster(url.pathname);
     }
 
     return env.ASSETS.fetch(request);
