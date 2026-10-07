@@ -1,25 +1,29 @@
 # Is It Worth Watching?
 
-A deliberately simple movie recommendation site. The static pages and the `/query` endpoint run together on Cloudflare Workers; the Worker keeps the TMDB API key private.
+Pick a movie or show. Get a yes or no. Keep expectations manageable.
+
+## The very complicated algorithm
+
+Fewer than 50 ratings? **Not enough data.** Otherwise, a TMDB average of 6/10 or higher means **Yes.** Anything lower means **No.**
+
+The "~# people say" count is an estimate: 40% of total ratings for Yes, 60% for No.
 
 ## Run locally
 
-Use Node.js 22 or newer. Install the locked dependencies and create a `.dev.vars` file in the project root. `TMDB_API_KEY` can contain either the TMDB v3 API key or the API Read Access Token:
+Use Node.js 22+. Create `.dev.vars` in the project root with your TMDB API key or API Read Access Token:
 
 ```text
 TMDB_API_KEY=your_tmdb_credential
 ```
-
-Then run:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Wrangler prints a local URL. `.dev.vars` is ignored by Git; never commit the key.
+Open the URL Wrangler prints. `.dev.vars` is ignored by Git; keep your credential there.
 
-## Deploy to Cloudflare
+## Deploy
 
 ```sh
 npx wrangler login
@@ -27,10 +31,18 @@ npx wrangler secret put TMDB_API_KEY
 npm run deploy
 ```
 
-Paste your TMDB credential only into Wrangler’s secret prompt. To attach a custom domain, open the Worker in the Cloudflare dashboard and add it under **Settings → Domains & Routes**.
+For Git-connected builds, add `TMDB_API_KEY` as a **Secret** under the Worker's **Settings → Variables & Secrets** and deploy the change. **Settings → Build** secrets only reach the build process; the running Worker needs its own secret.
 
-The Worker serves the files in `public/` and handles `POST /query`. Static pages use Cloudflare Workers Static Assets. Movie and TV title search runs through the Worker and requires the `TMDB_API_KEY` secret.
+## Under the hood
 
-## Give back
+Plain HTML, CSS, and JavaScript. No framework or frontend build step.
 
-Enjoy the project? [Give back through GiveWell's Top Charities Fund](https://www.givewell.org/top-charities-fund). It's pooled, and GiveWell publishes its research and impact estimates. GiveWell takes no fee; payment processing fees may apply. Impact estimates aren't guarantees.
+- `public/script.js` handles the UI; `public/search.js` handles requests.
+- `public/movies.js` holds the shared scoring rules and response contract.
+- `src/index.js` handles HTTP, `src/http.js` bounds request bodies, and `src/tmdb.js` talks to TMDB. The credential stays in the Worker.
+
+Run the checks with `npm test`.
+
+Broke something? [Open an issue](https://github.com/NedWilbur/IsItWorthWatching/issues).
+
+Enjoying it? [Give back](https://www.givewell.org/top-charities-fund).

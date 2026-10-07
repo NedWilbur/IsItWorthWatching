@@ -11,44 +11,54 @@
     <title>Is It Worth Watching?</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
+    <script src="script.js" type="module"></script>
 </head>
 <body>
-    <div class="page-shell">
-        <main class="home-main">
-            <section class="search-card" aria-labelledby="page-title">
-                <div class="title-line">
-                    <div class="question-area">
-                        <h1 id="page-title"><span class="question-prefix">Is</span><input id="query" form="search-form" name="query" type="search" placeholder="movie/show" maxlength="100" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" autofocus role="combobox" aria-label="Movie or TV show title" aria-autocomplete="list" aria-controls="options" aria-expanded="false" aria-describedby="search-status"><span class="question-ending">worth watching<button id="about-open" class="how-link" type="button" aria-label="How it works" aria-haspopup="dialog">?</button></span></h1>
-                        <span id="loading-indicator" class="loading-indicator" aria-hidden="true" hidden></span>
-                        <div id="results-panel" class="results-panel" hidden>
-                            <div class="result-filters" role="group" aria-label="Filter search results">
-                                <button type="button" data-filter="all" aria-pressed="true">All</button>
-                                <button type="button" data-filter="movie" aria-pressed="false">Movies</button>
-                                <button type="button" data-filter="tv" aria-pressed="false">TV</button>
-                            </div>
-                            <p id="filter-empty" class="filter-empty" hidden></p>
-                            <ul id="options" class="movie-options" role="listbox" aria-label="Movie and TV search results" hidden></ul>
-                        </div>
-                    </div>
+    <main class="home-main">
+        <form id="search-form" class="search-card" role="search" aria-labelledby="page-title" novalidate>
+            <div class="question-area">
+                <h1 id="page-title"><span class="question-prefix">Is</span><input id="query" name="query" type="search" placeholder="movie/show" maxlength="100" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" autofocus role="combobox" aria-label="Movie or TV show title" aria-autocomplete="list" aria-controls="options" aria-expanded="false" aria-describedby="verdict"><span class="question-ending">worth watching<button id="about-open" class="how-link" type="button" aria-label="How it works" aria-haspopup="dialog">?</button></span></h1>
+                <span id="loading-indicator" class="loading-indicator" aria-hidden="true" hidden></span>
+            </div>
+            <p id="verdict" class="verdict" role="status" aria-live="polite" aria-atomic="true" hidden>
+                <small id="vote-count" class="vote-count" title="Estimate: 40% of total TMDB ratings for Yes; 60% for No." hidden></small>
+                <span id="verdict-answer"></span>
+                <a id="issue-link" class="issue-link" href="https://github.com/NedWilbur/IsItWorthWatching/issues/new" target="_blank" rel="noopener noreferrer" hidden>Open an issue</a>
+            </p>
+            <div id="results-panel" class="results-panel" hidden>
+                <div class="result-filters" role="group" aria-label="Filter search results">
+                    <button type="button" data-filter="all" aria-pressed="true">All</button>
+                    <button type="button" data-filter="movie" aria-pressed="false">Movies</button>
+                    <button type="button" data-filter="tv" aria-pressed="false">TV</button>
                 </div>
-                <form id="search-form" class="visually-hidden" role="search" novalidate></form>
-                <p id="verdict" class="verdict" role="status" aria-live="polite" hidden></p>
-                <p id="search-status" class="visually-hidden" role="status" aria-live="polite"></p>
-            </section>
-        </main>
-        <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
-            <div class="dialog-heading">
-                <h2 id="about-title">About</h2>
-                <form method="dialog"><button class="dialog-close" aria-label="Close about window">×</button></form>
+                <ul id="options" class="movie-options" role="listbox" aria-label="Movie and TV search results" hidden></ul>
             </div>
-            <p>Everything is better when nobody ruins it by telling you a movie or show will change your life. Skip the endless hype and use this tool to easily dodge duds and find something great to watch tonight.</p>
-            <p>The algorithm behind this recommendation tool is the culmination of years of obsessive development. It's been fine-tuned, argued over, and blessed by an elite panel of film critics, compulsive mathematicians, eccentric magicians, and actual wizards (<span class="algorithm-tooltip"><button class="tooltip-trigger" type="button" aria-label="More info" aria-describedby="recommendation-algorithm">?</button><code id="recommendation-algorithm" class="algorithm-tooltip-content" role="tooltip">if (rating &gt;= 60%)&#10;    return 'Yes.';&#10;else&#10;    return 'No.';</code></span>).</p>
-            <p>This project is <a href="https://github.com/NedWilbur/IsItWorthWatching" target="_blank" rel="noopener noreferrer">open source</a>. Enjoying the website? <a href="https://www.givewell.org/top-charities-fund" target="_blank" rel="noopener noreferrer">Give back</a>.</p>
-            <div class="tmdb-attribution">
-                <p>Movie data and audience ratings are provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">The Movie Database (TMDB)</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+        </form>
+    </main>
+    <template id="movie-option-template">
+        <li class="movie-option" role="option" aria-selected="false">
+            <span class="movie-option-poster-frame" aria-hidden="true">
+                <img class="movie-option-poster" width="56" height="84" alt="" loading="lazy" decoding="async">
+            </span>
+            <div class="movie-option-info">
+                <div class="movie-option-title-row">
+                    <span class="movie-option-title"></span>
+                    <span class="movie-option-year"></span>
+                </div>
+                <span class="movie-option-overview"></span>
             </div>
-        </dialog>
-    </div>
+        </li>
+    </template>
+    <dialog id="about-dialog" class="about-dialog" aria-labelledby="about-title">
+        <div class="dialog-heading">
+            <h2 id="about-title">About</h2>
+            <form method="dialog"><button class="dialog-close" aria-label="Close about window">×</button></form>
+        </div>
+        <p>Everything is better when nobody ruins it by telling you a movie or show will change your life. Skip the endless hype and use this tool to dodge duds and find something good enough to watch tonight.</p>
+        <p>The algorithm behind this tool is the culmination of years of obsessive development. It's been fine-tuned, argued over, and blessed by an elite panel of film critics, compulsive mathematicians, eccentric magicians, and actual wizards (<span class="algorithm-tooltip"><button class="tooltip-trigger" type="button" aria-label="More info" aria-describedby="recommendation-algorithm">?</button><code id="recommendation-algorithm" class="algorithm-tooltip-content" role="tooltip">if (votes &lt; 50)&#10;    return 'Not enough data.';&#10;else if (rating &gt;= 60%)&#10;    return 'Yes.';&#10;else&#10;    return 'No.';</code></span>).</p>
+        <div class="tmdb-attribution">
+            <p>This hobby project is <a href="https://github.com/NedWilbur/IsItWorthWatching" target="_blank" rel="noopener noreferrer">open source</a>. Enjoying? <a href="https://www.givewell.org/top-charities-fund" target="_blank" rel="noopener noreferrer">Give back</a>. Movie data and audience ratings are provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">The Movie Database (TMDB)</a>. This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
+        </div>
+    </dialog>
 </body>
 </html>
