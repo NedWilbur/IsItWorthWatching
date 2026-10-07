@@ -29,6 +29,7 @@ h1 { display: flex; align-items: baseline; gap: .16em; width: 100%; min-width: 0
 #query:focus { border-bottom: 2px solid #d3f2df; }
 #query::-webkit-search-cancel-button { display: none; }
 .verdict { margin: 12px 0 0; color: #f1f3f2; font-size: var(--heading-size); font-weight: 700; line-height: 1.2; }
+#verdict-answer { white-space: nowrap; }
 .vote-count, .issue-link { display: block; color: #9aa4a2; font-size: 11px; font-weight: 400; line-height: 1.4; }
 .vote-count { margin-bottom: 4px; }
 .issue-link { width: fit-content; margin-top: 6px; }
