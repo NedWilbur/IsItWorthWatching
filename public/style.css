@@ -52,11 +52,12 @@ h1 { display: flex; align-items: baseline; gap: .16em; width: 100%; min-width: 0
 .tooltip-trigger { padding: 0; border: 0; color: inherit; background: transparent; font: inherit; text-decoration: none; cursor: help; }
 .algorithm-tooltip-content { position: absolute; z-index: 5; top: calc(100% + 8px); left: 0; display: block; width: max-content; max-width: calc(100vw - 48px); padding: 12px; overflow-x: auto; border: 1px solid #424a4c; color: #f1f3f2; background: #1d2426; font-size: 13px; font-weight: 400; white-space: pre; visibility: hidden; opacity: 0; transition: opacity 100ms ease, visibility 100ms ease; }
 .algorithm-tooltip:hover .algorithm-tooltip-content, .tooltip-trigger:focus-visible + .algorithm-tooltip-content { visibility: visible; opacity: 1; }
-.about-dialog { width: min(600px, calc(100% - 32px)); max-width: none; max-height: min(80vh, 720px); padding: 24px; overflow-y: auto; border: 1px solid #4b5556; color: #f1f3f2; background: #252d30; }
+.about-dialog { width: min(600px, calc(100% - 32px)); max-width: none; max-height: min(90vh, 800px); padding: 24px; overflow-y: auto; border: 1px solid #4b5556; color: #f1f3f2; background: #252d30; }
 .about-dialog::backdrop { background: rgb(0 0 0 / 72%); }
 .dialog-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
 .dialog-heading h2 { margin: 0; font-size: 1.5rem; line-height: 1.2; }
 .about-dialog > p { margin: 0 0 16px; color: #d0d6d4; }
+.about-dialog > :last-child { margin-bottom: 0; }
 .dialog-close { display: grid; width: 36px; height: 36px; place-items: center; padding: 0; border: 1px solid #657170; color: #d0d6d4; background: transparent; font-size: 1.4rem; line-height: 1; cursor: pointer; }
 .dialog-close:hover { color: #f1f3f2; background: #30393b; }
 .tmdb-attribution { margin-top: 24px; padding-top: 16px; border-top: 1px solid #424a4c; color: #b3bcba; font-size: 13px; }
